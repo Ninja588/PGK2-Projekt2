@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 1073441983}
   - component: {fileID: 1073441982}
   m_Layer: 0
-  m_Name: paletka (1)
+  m_Name: paletkaRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -730,7 +730,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a202848234d23714c80cc30687fcd571, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -769,7 +769,7 @@ Transform:
   m_GameObject: {fileID: 1073441981}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 104.59253, y: -11.412062, z: 8.431743}
+  m_LocalPosition: {x: 92, y: -11.412062, z: 8.431743}
   m_LocalScale: {x: 0.8, y: 5, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -896,7 +896,7 @@ GameObject:
   - component: {fileID: 1243861044}
   - component: {fileID: 1243861043}
   m_Layer: 0
-  m_Name: za bramka (1)
+  m_Name: zaBramkaBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,6 +1231,7 @@ GameObject:
   - component: {fileID: 1617523557}
   - component: {fileID: 1617523556}
   - component: {fileID: 1617523555}
+  - component: {fileID: 1617523559}
   m_Layer: 0
   m_Name: ball(s)
   m_TagString: Untagged
@@ -1321,12 +1322,39 @@ Transform:
   m_GameObject: {fileID: 1617523554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 2.5001, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 20, y: 3.14, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1617523559
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617523554}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
 --- !u!1 &1635403895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,7 +1368,7 @@ GameObject:
   - component: {fileID: 1635403897}
   - component: {fileID: 1635403896}
   m_Layer: 0
-  m_Name: za bramka
+  m_Name: zaBramkaRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1510,7 +1538,7 @@ GameObject:
   - component: {fileID: 1796053298}
   - component: {fileID: 1796053297}
   m_Layer: 0
-  m_Name: paletka
+  m_Name: paletkaBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1560,7 +1588,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: b4392c3999e98a747a3340d822520edd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1599,7 +1627,7 @@ Transform:
   m_GameObject: {fileID: 1796053296}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.592533, y: -11.412062, z: 8.431743}
+  m_LocalPosition: {x: 20, y: -11.412062, z: 8.431743}
   m_LocalScale: {x: 0.8, y: 5, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
