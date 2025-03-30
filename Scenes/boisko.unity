@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 1617523559}
   - component: {fileID: 1617523560}
   - component: {fileID: 1617523561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ball(s)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
