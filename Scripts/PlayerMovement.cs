@@ -37,8 +37,6 @@ public class PlayerMovement : MonoBehaviour
         
         characterController = GetComponent<CharacterController>();
         playerCamera = Camera.main;
-        playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y + cameraYOffset, transform.position.z);
-        playerCamera.transform.SetParent(transform);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
