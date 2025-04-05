@@ -411,12 +411,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4604678490171330643}
   - component: {fileID: 8532005847143438983}
+  - component: {fileID: 4929019216644572327}
   - component: {fileID: 3917099422975819525}
   - component: {fileID: 2057818620703291987}
   - component: {fileID: 3428889767741897651}
+  - component: {fileID: 859004140502089781}
   m_Layer: 0
   m_Name: Player2 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -460,8 +462,21 @@ MonoBehaviour:
   lookXLimit: 45
   player: {fileID: 1524380763665331854}
   orientation: {fileID: 1026596645014373888}
+  characterController: {fileID: 0}
   canMove: 1
   cameraYOffset: 0.4
+--- !u!114 &4929019216644572327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5927157712385838531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bd1bd71a4d0f143a865168d40c1404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3917099422975819525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -542,6 +557,29 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &859004140502089781
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5927157712385838531}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7141253746609173713
 GameObject:

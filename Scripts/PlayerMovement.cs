@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,11 +15,10 @@ public class PlayerMovement : MonoBehaviour
 
     public Transform player;
     public Transform orientation;
- 
-    CharacterController characterController;
+    public CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
- 
+
     [HideInInspector]
     public bool canMove = true;
  
@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     private Camera playerCamera;
  
     private Alteruna.Avatar _avatar;
+    private RaycastHit raycastHit;
+    private float punchForce = 15.0f;
  
     void Start()
     {
@@ -34,8 +36,9 @@ public class PlayerMovement : MonoBehaviour
  
         if (!_avatar.IsMe)
             return;
-        
+
         characterController = GetComponent<CharacterController>();
+        
         playerCamera = Camera.main;
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -59,6 +62,24 @@ public class PlayerMovement : MonoBehaviour
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
  
+        if(Input.GetMouseButton(0)) {
+            punchForce += 0.1f;
+        }
+
+        if(Input.GetMouseButtonUp(0)) {
+            Ray ray = new(player.position, player.forward);
+            Physics.Raycast(ray,out raycastHit,5.0f);
+            Rigidbody collidingObject = raycastHit.rigidbody;
+            if(collidingObject == null || collidingObject.isKinematic || !collidingObject.CompareTag("Paddle")) {
+                punchForce = 15.0f;
+                return;
+            }
+            Debug.Log(punchForce);
+            Vector3 pushDirection = new(0,0,raycastHit.normal.z * -1.0f);
+            collidingObject.linearVelocity = pushDirection.normalized * Mathf.Min((int)punchForce, 70.0f);
+            punchForce = 15.0f;
+        }
+
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
             moveDirection.y = jumpSpeed;
