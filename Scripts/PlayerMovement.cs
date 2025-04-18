@@ -25,7 +25,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float cameraYOffset = 0.4f;
     private Camera playerCamera;
- 
+
+    private Slider slider;
+
     private Alteruna.Avatar _avatar;
     private RaycastHit raycastHit;
     private float punchForce = 15.0f;
@@ -38,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         characterController = GetComponent<CharacterController>();
+
+        slider = GameObject.Find("PunchForceSlider").GetComponent<Slider>();
         
         playerCamera = Camera.main;
 
@@ -64,19 +68,32 @@ public class PlayerMovement : MonoBehaviour
  
         if(Input.GetMouseButton(0)) {
             punchForce += 0.1f;
+            slider.value = punchForce;
         }
 
         if(Input.GetMouseButtonUp(0)) {
             Ray ray = new(player.position, player.forward);
             Physics.Raycast(ray,out raycastHit,5.0f);
             Rigidbody collidingObject = raycastHit.rigidbody;
+           
             if(collidingObject == null || collidingObject.isKinematic || !collidingObject.CompareTag("Paddle")) {
                 punchForce = 15.0f;
                 return;
             }
+            
             Debug.Log(punchForce);
+            
             Vector3 pushDirection = new(0,0,raycastHit.normal.z * -1.0f);
-            collidingObject.linearVelocity = pushDirection.normalized * Mathf.Min((int)punchForce, 70.0f);
+            float clampedForce = Mathf.Min(punchForce, 70f);
+
+            PaddleSync paddleSync = collidingObject.GetComponent<PaddleSync>();
+
+            if(paddleSync != null) {
+                paddleSync.BroadcastRemoteMethod("Push", pushDirection, clampedForce);
+            }
+            
+            //collidingObject.linearVelocity = pushDirection.normalized * Mathf.Min((int)punchForce, 70.0f);
+            
             punchForce = 15.0f;
         }
 

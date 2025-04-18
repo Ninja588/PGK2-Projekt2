@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2252772224921694159}
   - component: {fileID: 7280025663543836708}
   - component: {fileID: 839549591392032715}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 670827769687002064}
   - component: {fileID: 5594872296892055455}
   - component: {fileID: 8701739004562438790}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -268,7 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1026596645014373888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 1161001565794338963}
   - component: {fileID: 8094892479231839440}
   - component: {fileID: 5392899453081581603}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 2057818620703291987}
   - component: {fileID: 3428889767741897651}
   - component: {fileID: 859004140502089781}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player2 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bd1bd71a4d0f143a865168d40c1404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  avatar: {fileID: 3917099422975819525}
 --- !u!114 &3917099422975819525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,10 +529,10 @@ MonoBehaviour:
   - Name: Max
     NetLOD: 4
     Frequency: 120
-  Reliability: 2
+  Reliability: 1
   UseGlobalPosition: 0
   OnlySyncFromRoomOwner: 0
-  refreshRate: 30
+  refreshRate: 60
   SyncedAxes: 511
 --- !u!143 &3428889767741897651
 CharacterController:
@@ -591,7 +592,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2772031859236617731}
   - component: {fileID: 3914124294941986537}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
