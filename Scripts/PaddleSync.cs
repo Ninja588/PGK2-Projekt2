@@ -8,7 +8,6 @@ public class PaddleSync : AttributesSync
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         RigidbodySynchronizable rbS = GetComponent<RigidbodySynchronizable>();
-        rb.isKinematic = false;
         rb.linearVelocity = pushDirection.normalized * force;
         rbS.ForceUpdate();
     }
@@ -18,7 +17,6 @@ public class PaddleSync : AttributesSync
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         RigidbodySynchronizable rbS = GetComponent<RigidbodySynchronizable>();
-        rb.isKinematic = false;
         rb.linearVelocity = pushDirection * force;
         rbS.ForceUpdate();
     }

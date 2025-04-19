@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class BallScript : MonoBehaviour
 {
-    [SerializeField] private float initialSpeed = 10f;
+    [SerializeField] private float initialSpeed = 30.0f;
 
     private RigidbodySynchronizable rbS;
+    private Rigidbody rb;
+    private Vector3 lastSpeed;
+
 
     void Start()
     {
         rbS = GetComponent<RigidbodySynchronizable>();
-        rbS.velocity = new Vector3(initialSpeed, 0, initialSpeed);
+        rb = GetComponent<Rigidbody>();
+        rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
+        lastSpeed = rb.linearVelocity;
+        //Debug.Log("Start speed (Vec3): " + rb.linearVelocity);
+        //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
     }
 
     void Update()
@@ -23,13 +30,33 @@ public class BallScript : MonoBehaviour
         if (rbS.velocity.magnitude >= 50f) return;
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Paddle"))
         {
-            Vector3 reflection = Vector3.Reflect(rbS.velocity, collision.contacts[0].normal);
+            if(rb.linearVelocity.magnitude < lastSpeed.magnitude) {
+                rb.linearVelocity = lastSpeed;
+                //Debug.Log("Last speed (+): " + lastSpeed.magnitude);
+            }
+            else if(-rb.linearVelocity.magnitude < lastSpeed.magnitude) {
+                rb.linearVelocity = -lastSpeed;
+                //Debug.Log("Last speed (-): " + lastSpeed.magnitude);
+            }
+            Vector3 reflection = Vector3.Reflect(rb.linearVelocity, collision.contacts[0].normal);
 
-            float currentSpeed = rbS.velocity.magnitude;
+            //Debug.Log("Collision speed (Vec3): " + rb.linearVelocity);
+            //Debug.Log("Contacts normal: " + collision.contacts[0].normal);
+            //Debug.Log("Reflection: " + reflection);
+
+            float currentSpeed = rb.linearVelocity.magnitude;
+            //Debug.Log("Previous speed: " + rb.linearVelocity);
+
             float speedMultiplier = 1.05f;
-            float newSpeed = Mathf.Max(currentSpeed * speedMultiplier, currentSpeed);
+            float newSpeed = Mathf.Min(currentSpeed * speedMultiplier, 120.0f);
 
-            rbS.velocity = reflection.normalized * newSpeed;
+            //Debug.Log("New speed: " + newSpeed + " Previous speed: " + currentSpeed);
+
+            rb.linearVelocity = reflection.normalized * newSpeed;
+            lastSpeed = rb.linearVelocity;
+            //Debug.Log("New speed: " + rb.linearVelocity);
+
+            rbS.ForceUpdate();
         }
     }
 }
