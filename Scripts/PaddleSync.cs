@@ -1,4 +1,5 @@
 using Alteruna;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PaddleSync : AttributesSync
@@ -8,16 +9,16 @@ public class PaddleSync : AttributesSync
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         RigidbodySynchronizable rbS = GetComponent<RigidbodySynchronizable>();
-        rb.linearVelocity = pushDirection.normalized * force;
+        rbS.velocity = pushDirection.normalized * force;
         rbS.ForceUpdate();
     }
 
     [SynchronizableMethod]
     void Move(Vector3 pushDirection, float force)
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
+        //Rigidbody rb = GetComponent<Rigidbody>();
         RigidbodySynchronizable rbS = GetComponent<RigidbodySynchronizable>();
-        rb.linearVelocity = pushDirection * force;
+        rbS.velocity = pushDirection * force;
         rbS.ForceUpdate();
     }
 }

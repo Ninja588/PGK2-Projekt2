@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Alteruna;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -15,7 +16,7 @@ public class playerPalleteInteraction : MonoBehaviour
     {
         if(!avatar.IsMe) return;
 
-        Rigidbody collidingObject = hit.collider.attachedRigidbody;
+        RigidbodySynchronizable collidingObject = hit.collider.GetComponent<RigidbodySynchronizable>();
 
         if(collidingObject == null || collidingObject.isKinematic || !collidingObject.CompareTag("Paddle")) {
             return;
