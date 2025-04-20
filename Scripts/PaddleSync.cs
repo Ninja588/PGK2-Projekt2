@@ -1,5 +1,4 @@
 using Alteruna;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PaddleSync : AttributesSync
