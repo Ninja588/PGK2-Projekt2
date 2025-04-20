@@ -7,7 +7,7 @@ public class PaddleSync : AttributesSync
     [SynchronizableMethod]
     void Push(Vector3 pushDirection, float force)
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
+        //Rigidbody rb = GetComponent<Rigidbody>();
         RigidbodySynchronizable rbS = GetComponent<RigidbodySynchronizable>();
         rbS.velocity = pushDirection.normalized * force;
         rbS.ForceUpdate();
