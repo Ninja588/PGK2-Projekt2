@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8968076495373612666}
   - component: {fileID: 4234951400375332992}
   - component: {fileID: 3520455299139776246}
+  - component: {fileID: 4799173646404787599}
   m_Layer: 6
   m_Name: ball(s)
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 5881990769030677709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 3.14, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -169,8 +170,8 @@ MonoBehaviour:
     NetLOD: 4
     Frequency: 120
   Reliability: 1
-  SyncEveryNUpdates: 10
-  FullSyncEveryNSync: 4
+  SyncEveryNUpdates: 1
+  FullSyncEveryNSync: 1
   SendData: 1
   ApplyAsTransform: 0
   AllowCollisionToAssumeOwner: 1
@@ -188,3 +189,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 30
+--- !u!114 &4799173646404787599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881990769030677709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1fa80a8da9f6af4090bfdb49d13c0a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

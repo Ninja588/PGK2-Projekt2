@@ -10,17 +10,6 @@ public class playerPalleteInteraction : MonoBehaviour
     //public PlayerMovement playerMovement;
     //private RaycastHit raycastHit;
     public Alteruna.Avatar avatar;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
