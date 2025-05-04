@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Data.Common;
 using System.Linq;
 using UnityEngine;
@@ -19,10 +20,18 @@ public class ScoreArea : MonoBehaviour
     {
         if(other.CompareTag("BlueScore")) {
             redScore++;
+            StartCoroutine(BallCoroutine());
         }
         else if(other.CompareTag("RedScore")) {
             blueScore++;
+            StartCoroutine(BallCoroutine());
         } else return;
         scoreText.text = $"<color=blue>{blueScore}</color> : <color=red>{redScore}</color>";
+    }
+
+    private IEnumerator BallCoroutine() {
+        gameObject.GetComponent<BallScript>().StopBall();
+        yield return new WaitForSeconds(3);
+        gameObject.GetComponent<BallScript>().StartBall();
     }
 }

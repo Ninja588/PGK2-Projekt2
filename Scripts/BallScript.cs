@@ -20,11 +20,6 @@ public class BallScript : MonoBehaviour
         //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
     }
 
-    void Update()
-    {
-        //Debug.Log(rbS.velocity.magnitude);
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if (rbS.velocity.magnitude >= 50f) return;
@@ -58,5 +53,14 @@ public class BallScript : MonoBehaviour
 
             rbS.ForceUpdate();
         }
+    }
+    public void StopBall() {
+        rbS.velocity = Vector3.zero;
+        gameObject.transform.position = new Vector3(20f,3.14f,0f);
+        rbS.ForceUpdate();
+    }
+    public void StartBall() {
+        rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
+        lastSpeed = rb.linearVelocity;
     }
 }
