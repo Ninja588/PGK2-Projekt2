@@ -9,15 +9,13 @@ public class ScoreArea : MonoBehaviour
     private Text scoreText;
     private int blueScore = 0;
     private int redScore = 0;
-    [SerializeField] private AudioClip goalSound;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -38,9 +36,9 @@ public class ScoreArea : MonoBehaviour
 
     private void PlayGoalSound()
     {
-        if (goalSound != null && audioSource != null)
+        if (audioSource != null)
         {
-            audioSource.PlayOneShot(goalSound);
+            audioSource.Play();
         }
     }
 

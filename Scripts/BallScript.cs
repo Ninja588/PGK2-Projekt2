@@ -4,8 +4,7 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     [SerializeField] private float initialSpeed = 30.0f;
-    [SerializeField] private AudioClip bounceSound;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
 
     private RigidbodySynchronizable rbS;
@@ -19,7 +18,7 @@ public class BallScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
         //Debug.Log("Start speed (Vec3): " + rb.linearVelocity);
         //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
     }
@@ -55,10 +54,10 @@ public class BallScript : MonoBehaviour
             lastSpeed = rb.linearVelocity;
             //Debug.Log("New speed: " + rb.linearVelocity);
 
-            if (bounceSound != null && audioSource != null)
+            if (audioSource != null)
             {
-                Debug.Log("chuj");
-                audioSource.PlayOneShot(bounceSound);
+                //Debug.Log("chuj");
+                audioSource.Play();
             }
 
             rbS.ForceUpdate();
