@@ -4,6 +4,9 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     [SerializeField] private float initialSpeed = 30.0f;
+    [SerializeField] private AudioClip bounceSound;
+    private AudioSource audioSource;
+
 
     private RigidbodySynchronizable rbS;
     private Rigidbody rb;
@@ -16,6 +19,7 @@ public class BallScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
+        audioSource = GetComponent<AudioSource>();
         //Debug.Log("Start speed (Vec3): " + rb.linearVelocity);
         //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
     }
@@ -50,6 +54,12 @@ public class BallScript : MonoBehaviour
             rb.linearVelocity = reflection.normalized * newSpeed;
             lastSpeed = rb.linearVelocity;
             //Debug.Log("New speed: " + rb.linearVelocity);
+
+            if (bounceSound != null && audioSource != null)
+            {
+                Debug.Log("chuj");
+                audioSource.PlayOneShot(bounceSound);
+            }
 
             rbS.ForceUpdate();
         }
