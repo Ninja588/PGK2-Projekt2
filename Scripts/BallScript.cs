@@ -69,6 +69,7 @@ public class BallScript : MonoBehaviour
         rbS.ForceUpdate();
     }
     public void StartBall() {
+        rb = GetComponent<Rigidbody>();
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
     }

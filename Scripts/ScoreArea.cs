@@ -42,8 +42,18 @@ public class ScoreArea : MonoBehaviour
         }
     }
 
+    public void resetScore()
+    {
+        StopAllCoroutines();
 
-    private IEnumerator BallCoroutine() {
+        blueScore = 0;
+        redScore = 0;
+
+        scoreText.text = "";
+    }
+
+    private IEnumerator BallCoroutine()
+    {
         gameObject.GetComponent<BallScript>().StopBall();
         yield return new WaitForSeconds(3);
         gameObject.GetComponent<BallScript>().StartBall();
