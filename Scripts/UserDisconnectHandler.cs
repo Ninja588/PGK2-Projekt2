@@ -15,7 +15,7 @@ public class UserDisconnectHandler : MonoBehaviour
         if (ballEnabler.playerWasHere && Multiplayer.Instance.GetUsers().Count == 1)
         {
             //Debug.Log("Reset jest");
-            scoreArea.resetScore();
+            scoreArea.ResetScore();
             ballScript.StopBall();
             // ballScript.enabled = false;
 

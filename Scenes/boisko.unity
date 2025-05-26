@@ -330,7 +330,7 @@ MonoBehaviour:
   - Name: Max
     NetLOD: 4
     Users: 
-  _maxPlayers: 10
+  _maxPlayers: 2
   AvatarSpawning: 1
   AvatarPrefab: {fileID: 3917099422975819525, guid: 24034606011608043980171e3561c5d7, type: 3}
   AvatarSpawnLocation: {fileID: 1677801538}
@@ -4300,7 +4300,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776108439707541487}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -4400,7 +4400,7 @@ Transform:
   m_GameObject: {fileID: 6020349347808877134}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.59, y: 4.51, z: 0}
+  m_LocalPosition: {x: -16.12, y: 4.51, z: 0}
   m_LocalScale: {x: 0.8, y: 5, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4418,6 +4418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fa80a8da9f6af4090bfdb49d13c0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 47495498-1a6a-40fd-af94-86567e393c62
+  Reliability: 1
+  LocalMethodBehavior: 1
+  scoreText: {fileID: 0}
   audioSource: {fileID: 1537297019}
 --- !u!114 &3466399731413445785
 MonoBehaviour:
@@ -4604,7 +4609,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6020349347808877134}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6045,7 +6050,7 @@ Transform:
   m_GameObject: {fileID: 5776108439707541487}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 55.41, y: 4.51, z: 0}
+  m_LocalPosition: {x: 54.46, y: 4.51, z: 0}
   m_LocalScale: {x: 0.8, y: 5, z: 9}
   m_ConstrainProportionsScale: 0
   m_Children: []

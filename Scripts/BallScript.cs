@@ -25,47 +25,65 @@ public class BallScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+        if (!Multiplayer.Instance.GetUser().IsHost) return;
         if (rbS.velocity.magnitude >= 50f) return;
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Paddle"))
         {
-            if(rb.linearVelocity.magnitude < lastSpeed.magnitude) {
-                rb.linearVelocity = lastSpeed;
-                //Debug.Log("Last speed (+): " + lastSpeed.magnitude);
-            }
-            else if(-rb.linearVelocity.magnitude < lastSpeed.magnitude) {
-                rb.linearVelocity = -lastSpeed;
-                //Debug.Log("Last speed (-): " + lastSpeed.magnitude);
-            }
-            Vector3 reflection = Vector3.Reflect(rb.linearVelocity, collision.contacts[0].normal);
+            // if(rb.linearVelocity.magnitude < lastSpeed.magnitude) {
+            //     rb.linearVelocity = lastSpeed;
+            //     //Debug.Log("Last speed (+): " + lastSpeed.magnitude);
+            // }
+            // else if(-rb.linearVelocity.magnitude < lastSpeed.magnitude) {
+            //     rb.linearVelocity = -lastSpeed;
+            //     //Debug.Log("Last speed (-): " + lastSpeed.magnitude);
+            // }
+            // Vector3 reflection = Vector3.Reflect(rb.linearVelocity, collision.contacts[0].normal);
 
-            //Debug.Log("Collision speed (Vec3): " + rb.linearVelocity);
-            //Debug.Log("Contacts normal: " + collision.contacts[0].normal);
-            //Debug.Log("Reflection: " + reflection);
+            // //Debug.Log("Collision speed (Vec3): " + rb.linearVelocity);
+            // //Debug.Log("Contacts normal: " + collision.contacts[0].normal);
+            // //Debug.Log("Reflection: " + reflection);
 
-            float currentSpeed = rb.linearVelocity.magnitude;
-            //Debug.Log("Previous speed: " + rb.linearVelocity);
+            // float currentSpeed = rb.linearVelocity.magnitude;
+            // //Debug.Log("Previous speed: " + rb.linearVelocity);
+
+            // float speedMultiplier = 1.05f;
+            // float newSpeed = Mathf.Min(currentSpeed * speedMultiplier, 120.0f);
+
+            // //Debug.Log("New speed: " + newSpeed + " Previous speed: " + currentSpeed);
+
+            // rb.linearVelocity = reflection.normalized * newSpeed;
+            // lastSpeed = rb.linearVelocity;
+            // //Debug.Log("New speed: " + rb.linearVelocity);
+
+            ContactPoint contact = collision.contacts[0];
+
+            Vector3 currentVelocity = rb.linearVelocity;
+            Vector3 reflectedVelocity = Vector3.Reflect(currentVelocity, contact.normal);
 
             float speedMultiplier = 1.05f;
-            float newSpeed = Mathf.Min(currentSpeed * speedMultiplier, 120.0f);
+            float newSpeed = Mathf.Min(currentVelocity.magnitude * speedMultiplier, 120.0f);
 
-            //Debug.Log("New speed: " + newSpeed + " Previous speed: " + currentSpeed);
-
-            rb.linearVelocity = reflection.normalized * newSpeed;
+            rb.linearVelocity = reflectedVelocity.normalized * newSpeed;
             lastSpeed = rb.linearVelocity;
-            //Debug.Log("New speed: " + rb.linearVelocity);
 
-            if (audioSource != null)
-            {
-                //Debug.Log("chuj");
-                audioSource.Play();
-            }
+            // if (audioSource != null)
+            // {
+            //     //Debug.Log("chuj");
+            //     audioSource.Play();
+            // }
 
             rbS.ForceUpdate();
         }
     }
-    public void StopBall() {
+    
+    public void StopBall()
+    {
         rbS.velocity = Vector3.zero;
-        gameObject.transform.position = new Vector3(20f,3.14f,0f);
+        gameObject.transform.position = new Vector3(20f, 3.14f, 0f);
         rbS.ForceUpdate();
     }
     public void StartBall() {
