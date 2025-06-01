@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using Alteruna.Trinity;
+using UnityEngine.SceneManagement;
 
 namespace Alteruna
 {
@@ -14,6 +15,7 @@ namespace Alteruna
 		[SerializeField] private GameObject ContentContainer;
 		[SerializeField] private Button StartButton;
 		[SerializeField] private Button LeaveButton;
+		private GameObject loading;
 
 		public bool ShowUserCount = false;
 
@@ -32,6 +34,7 @@ namespace Alteruna
 
 		private void Start()
 		{
+			loading = GameObject.Find("LoadingCanvas");
 			if (Multiplayer == null)
 			{
 				Multiplayer = FindObjectOfType<Multiplayer>();
@@ -60,8 +63,10 @@ namespace Alteruna
 
 				LeaveButton.onClick.AddListener(() =>
 				{
-					Multiplayer.CurrentRoom?.Leave();
-					_refreshTime = RefreshInterval;
+					//Multiplayer.CurrentRoom?.Leave();
+					//_refreshTime = RefreshInterval;
+					loading.GetComponent<Canvas>().enabled = true;
+            		SceneManager.LoadScene("MainMenu");
 				});
 
 				if (TitleText != null)
@@ -88,7 +93,7 @@ namespace Alteruna
 			}
 
 			StartButton.interactable = false;
-			LeaveButton.interactable = false;
+			//LeaveButton.interactable = false;
 		}
 
 		private void FixedUpdate()
@@ -172,18 +177,18 @@ namespace Alteruna
 			}
 
 			StartButton.interactable = true;
-			LeaveButton.interactable = false;
+			//LeaveButton.interactable = false;
 
 			if (TitleText != null)
 			{
-				TitleText.text = "Rooms";
+				TitleText.text = "Lobby Browser";
 			}
 		}
 
 		private void Disconnected(Multiplayer multiplayer, Endpoint endPoint)
 		{
 			StartButton.interactable = false;
-			LeaveButton.interactable = false;
+			//LeaveButton.interactable = false;
 
 			_connectionMessage = "Reconnecting";
 			if (TitleText != null)
@@ -195,7 +200,7 @@ namespace Alteruna
 		private void JoinedRoom(Multiplayer multiplayer, Room room, User user)
 		{
 			StartButton.interactable = false;
-			LeaveButton.interactable = true;
+			//LeaveButton.interactable = true;
 
 			if (TitleText != null)
 			{
@@ -208,11 +213,11 @@ namespace Alteruna
 			_roomI = -1;
 
 			StartButton.interactable = true;
-			LeaveButton.interactable = false;
+			//LeaveButton.interactable = false;
 
 			if (TitleText != null)
 			{
-				TitleText.text = "Rooms";
+				TitleText.text = "Lobby Browser";
 			}
 		}
 

@@ -8,10 +8,11 @@ public class PauseMenuScript : MonoBehaviour
     private GameObject pauseMenu;
     private GameObject overlay;
     private GameObject loading;
+    private GameObject lobbyBrowser;
     private Alteruna.Avatar avatar;
     private GameObject disconnectButton;
     private PlayerMovement playerMovement;
-    private GameObject panel;
+    //private GameObject panel;
 
     private bool d = true;
 
@@ -23,14 +24,16 @@ public class PauseMenuScript : MonoBehaviour
         overlay = GameObject.Find("OverlayCanvas");
         loading = GameObject.Find("LoadingCanvas");
         disconnectButton = GameObject.Find("DisconnectButton");
-        if(GameObject.Find("RoomMenuPanel") != null) panel = GameObject.Find("RoomMenuPanel");
+        lobbyBrowser = GameObject.Find("LobbyBrowserCanvas");
+        //if (GameObject.Find("RoomMenuPanel") != null) panel = GameObject.Find("RoomMenuPanel");
         playerMovement = GetComponent<PlayerMovement>();
         
         overlay.GetComponent<Canvas>().enabled = true;
         pauseMenu.GetComponent<Canvas>().enabled = false;
         loading.GetComponent<Canvas>().enabled = false;
+        lobbyBrowser.GetComponent<Canvas>().enabled = false;
 
-        if(panel != null) panel.SetActive(false);
+        //if(panel != null) panel.SetActive(false);
 
         disconnectButton.GetComponent<Button>().onClick.AddListener(() =>
         {
