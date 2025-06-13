@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Alteruna;
 using UnityEngine;
@@ -40,6 +39,27 @@ public class PlayerMovement : AttributesSync
     private bool lastIsFalling = false;
     private bool lastIsGrounded = true;
 
+    // abilites
+    private float cooldownDuration = 15f;
+
+    // slow ability
+    private RawImage slowAbilityBox;
+    private Text slowAbilityCooldownText;
+    private bool slowIsOnCooldown;
+    private float slowCoolDownTimer;
+
+    // boost ability
+    private RawImage boostAbilityBox;
+    private Text boostAbilityCooldownText;
+    private bool boostIsOnCooldown;
+    private float boostCoolDownTimer;
+
+    // reset ability
+    private RawImage resetAbilityBox;
+    private Text resetAbilityCooldownText;
+    private bool resetIsOnCooldown;
+    private float resetCoolDownTimer;
+
     void Start()
     {
         _avatar = GetComponent<Alteruna.Avatar>();
@@ -50,6 +70,15 @@ public class PlayerMovement : AttributesSync
         characterController = GetComponent<CharacterController>();
 
         slider = GameObject.Find("PunchForceSlider").GetComponent<Slider>();
+        slowAbilityBox = GameObject.Find("SlowAbility").GetComponent<RawImage>();
+        slowAbilityCooldownText = GameObject.Find("SlowCD").GetComponent<Text>();
+
+        boostAbilityBox = GameObject.Find("BoostAbility").GetComponent<RawImage>();
+        boostAbilityCooldownText = GameObject.Find("BoostCD").GetComponent<Text>();
+
+        resetAbilityBox = GameObject.Find("ResetAbility").GetComponent<RawImage>();
+        resetAbilityCooldownText = GameObject.Find("ResetCD").GetComponent<Text>();
+
         animator = GetComponentInChildren<Animator>();
         animationSync = GetComponentInChildren<AnimationSync>();
 
@@ -57,6 +86,15 @@ public class PlayerMovement : AttributesSync
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // for (int i = 0; i < Multiplayer.Instance.GetUsers().Count; i++)
+        // {
+        //     List<User> temp = Multiplayer.Instance.GetUsers();
+        //     foreach (User user in temp)
+        //     {
+        //         if (user.IsHost) host = user;
+        //     } 
+        // }
 
 
         foreach (var rend in GetComponentsInChildren<SkinnedMeshRenderer>())
@@ -83,7 +121,9 @@ public class PlayerMovement : AttributesSync
 
         float targetSpeed = isRunning ? runningSpeed : walkingSpeed;
         if (inputMagnitude == 0f) targetSpeed = 0f;
-
+        
+        // -----------------------------------------------------
+        // animacje
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         float velY = moveDirection.y;
@@ -146,7 +186,8 @@ public class PlayerMovement : AttributesSync
             lastIsFalling = isFalling;
         }
 
-
+        // -----------------------------------------------------
+        // punch
         if (Input.GetMouseButton(0))
         {
             punchForce += 0.1f;
@@ -169,7 +210,64 @@ public class PlayerMovement : AttributesSync
             punchForce = 15f;
             slider.value = punchForce;
         }
+        // -----------------------------------------------------
+        // abilities
 
+        //slow
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !slowIsOnCooldown && Multiplayer.Instance.GetUsers().Count > 1)
+        {
+            SlowAbility();
+        }
+        else if (slowIsOnCooldown)
+        {
+            slowCoolDownTimer -= Time.deltaTime;
+            slowAbilityCooldownText.text = Mathf.Ceil(slowCoolDownTimer).ToString();
+
+            if (slowCoolDownTimer <= 0f)
+            {
+                slowAbilityCooldownText.text = "";
+                slowIsOnCooldown = false;
+                slowAbilityBox.color = new Color(1, 1, 1, 1);
+            }
+        }
+
+        // boost
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !boostIsOnCooldown && Multiplayer.Instance.GetUsers().Count > 1)
+        {
+            BoostAbility();
+        }
+        else if (boostIsOnCooldown)
+        {
+            boostCoolDownTimer -= Time.deltaTime;
+            boostAbilityCooldownText.text = Mathf.Ceil(boostCoolDownTimer).ToString();
+
+            if (boostCoolDownTimer <= 0f)
+            {
+                boostAbilityCooldownText.text = "";
+                boostIsOnCooldown = false;
+                boostAbilityBox.color = new Color(1, 1, 1, 1);
+            }
+        }
+
+        // reset
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !resetIsOnCooldown && Multiplayer.Instance.GetUsers().Count > 1)
+        {
+            ResetAbility();
+        }
+        else if (resetIsOnCooldown)
+        {
+            resetCoolDownTimer -= Time.deltaTime;
+            resetAbilityCooldownText.text = Mathf.Ceil(resetCoolDownTimer).ToString();
+
+            if (resetCoolDownTimer <= 0f)
+            {
+                resetAbilityCooldownText.text = "";
+                resetIsOnCooldown = false;
+                resetAbilityBox.color = new Color(1, 1, 1, 1);
+            }
+        }
+        // -----------------------------------------------------
+        // rotation
         if (canMove && playerCamera != null)
         {
             rotationX = Mathf.Clamp(rotationX - Input.GetAxis("Mouse Y") * lookSpeed, -lookXLimit, lookXLimit);
@@ -178,9 +276,40 @@ public class PlayerMovement : AttributesSync
             player.transform.forward = orientation.forward;
         }
     }
-    
+
     public void ApplyPush(Vector3 direction, float strength)
     {
         transform.position += direction.normalized * strength * Time.deltaTime;
+    }
+
+    void SlowAbility()
+    {
+        BallAbilitiesSync ballAbilities = FindFirstObjectByType<BallAbilitiesSync>();
+        ballAbilities.BroadcastRemoteMethod("SlowBall");
+        //ballAbilities.InvokeRemoteMethod("SlowBall");
+
+        slowIsOnCooldown = true;
+        slowCoolDownTimer = cooldownDuration + 5;
+        slowAbilityBox.color = new Color(1, 1, 1, 0.4f);
+    }
+
+    void BoostAbility()
+    {
+        BallAbilitiesSync ballAbilities = FindFirstObjectByType<BallAbilitiesSync>();
+        ballAbilities.BroadcastRemoteMethod("BoostBall");
+
+        boostIsOnCooldown = true;
+        boostCoolDownTimer = cooldownDuration;
+        boostAbilityBox.color = new Color(1, 1, 1, 0.4f);
+    }
+    
+    void ResetAbility()
+    {
+        slowCoolDownTimer = 0f;
+        boostCoolDownTimer = 0f;
+
+        resetIsOnCooldown = true;
+        resetCoolDownTimer = cooldownDuration + 15;
+        resetAbilityBox.color = new Color(1, 1, 1, 0.4f);
     }
 }

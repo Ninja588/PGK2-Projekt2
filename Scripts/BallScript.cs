@@ -1,3 +1,4 @@
+using System.Collections;
 using Alteruna;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class BallScript : MonoBehaviour
     private RigidbodySynchronizable rbS;
     private Rigidbody rb;
     private Vector3 lastSpeed;
+    private BallAbilitiesSync abilitesSync;
 
 
     void Start()
@@ -18,6 +20,7 @@ public class BallScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
+        abilitesSync = GetComponent<BallAbilitiesSync>();
         // audioSource = GetComponent<AudioSource>();
         //Debug.Log("Start speed (Vec3): " + rb.linearVelocity);
         //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
@@ -79,14 +82,16 @@ public class BallScript : MonoBehaviour
             rbS.ForceUpdate();
         }
     }
-    
+
     public void StopBall()
     {
         rbS.velocity = Vector3.zero;
         gameObject.transform.position = new Vector3(20f, 3.14f, 0f);
         rbS.ForceUpdate();
+        abilitesSync.StopAllCoroutines();
     }
-    public void StartBall() {
+    public void StartBall()
+    {
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
