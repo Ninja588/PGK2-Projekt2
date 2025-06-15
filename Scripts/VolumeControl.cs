@@ -9,7 +9,7 @@ public class VolumeControl : MonoBehaviour
 
     void Start()
     {
-        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 0f);
+        float savedVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
         volumeSlider.value = savedVolume;
         SetVolume(savedVolume);
 
