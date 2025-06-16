@@ -15,7 +15,6 @@ public class BallEnabler : MonoBehaviour
 
     private IEnumerator Check()
     {
-        //Debug.Log("Wlaczam sie");
         while (true)
         {
             if (Multiplayer.Instance.GetUsers().Count == 2)

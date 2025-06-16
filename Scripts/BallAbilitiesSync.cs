@@ -16,10 +16,8 @@ public class BallAbilitiesSync : AttributesSync
     public void SlowBall()
     {
         if (!Multiplayer.Instance.GetUser().IsHost) return;
-        Debug.Log("slow host");
 
         Vector3 temp = rbS.velocity;
-        // Debug.Log("Rbs: " + rbS.velocity + "temp/2:" + temp/2);
         rbS.velocity = temp / 2;
         rbS.ForceUpdate();
         StartCoroutine(SlowCoolDown(temp));
@@ -34,7 +32,6 @@ public class BallAbilitiesSync : AttributesSync
     public void BoostBall()
     {
         if (!Multiplayer.Instance.GetUser().IsHost) return;
-        // Debug.Log("boost host");
         
         rbS.velocity *= 1.5f;
         rbS.ForceUpdate();

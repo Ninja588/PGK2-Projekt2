@@ -87,14 +87,6 @@ public class PlayerMovement : AttributesSync
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // for (int i = 0; i < Multiplayer.Instance.GetUsers().Count; i++)
-        // {
-        //     List<User> temp = Multiplayer.Instance.GetUsers();
-        //     foreach (User user in temp)
-        //     {
-        //         if (user.IsHost) host = user;
-        //     } 
-        // }
 
 
         foreach (var rend in GetComponentsInChildren<SkinnedMeshRenderer>())
@@ -135,8 +127,7 @@ public class PlayerMovement : AttributesSync
             moveDirection.y = jumpSpeed;
             animationSync.BroadcastRemoteMethod("UpdateJump", true);
             animationSync.BroadcastRemoteMethod("UpdateGrounded", false);
-            //animator.SetBool("Jump", true);
-            //animator.SetBool("Grounded", false);
+ 
         }
 
         if (!characterController.isGrounded)
@@ -148,23 +139,16 @@ public class PlayerMovement : AttributesSync
         float normalizedSpeed = Mathf.Clamp01(currentHorizontalSpeed / runningSpeed);
 
         animationBlend = Mathf.Lerp(animationBlend, targetSpeed, Time.deltaTime * 10f);
-        //animationSync.BroadcastRemoteMethod("UpdateSpeed", animationBlend);
-        // animator.SetFloat("Speed", animationBlend);
-        // animator.SetFloat("MotionSpeed", 1.0f);
+
         if (Mathf.Abs(animationBlend - lastSentSpeed) > 2.0f)
         {
-            //animator.SetFloat("Speed", animationBlend);
-            //animator.SetFloat("MotionSpeed", 1.0f);
             lastSentSpeed = animationBlend;
             animationSync.BroadcastRemoteMethod("UpdateSpeed", animationBlend);
         }
-        //Debug.Log("animationBlend: " + animationBlend + " MotionSpeed: " + inputMagnitude);
 
         bool isGrounded = characterController.isGrounded;
-        //animator.SetBool("Grounded", isGrounded);
         if (isGrounded != lastIsGrounded)
         {
-            //animator.SetBool("Grounded", isGrounded);
             animationSync.BroadcastRemoteMethod("UpdateGrounded", isGrounded);
             lastIsGrounded = isGrounded;
         }
@@ -172,16 +156,12 @@ public class PlayerMovement : AttributesSync
         if (!wasGrounded && isGrounded)
         {
             animationSync.BroadcastRemoteMethod("UpdateJump", false);
-            //animator.SetBool("Jump", false);
             animationSync.BroadcastRemoteMethod("UpdateFreeFall", false);
-            //animator.SetBool("FreeFall", false);
         }
 
         bool isFalling = !isGrounded && moveDirection.y < 0;
-        //animator.SetBool("FreeFall", isFalling);
         if (isFalling != lastIsFalling)
         {
-            //animator.SetBool("FreeFall", isFalling);
             animationSync.BroadcastRemoteMethod("UpdateFreeFall", isFalling);
             lastIsFalling = isFalling;
         }
@@ -286,7 +266,6 @@ public class PlayerMovement : AttributesSync
     {
         BallAbilitiesSync ballAbilities = FindFirstObjectByType<BallAbilitiesSync>();
         ballAbilities.BroadcastRemoteMethod("SlowBall");
-        //ballAbilities.InvokeRemoteMethod("SlowBall");
 
         slowIsOnCooldown = true;
         slowCoolDownTimer = cooldownDuration + 5;

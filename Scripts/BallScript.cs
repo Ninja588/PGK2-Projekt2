@@ -21,9 +21,7 @@ public class BallScript : MonoBehaviour
         rb.linearVelocity = new Vector3(initialSpeed, 0, 1.0f);
         lastSpeed = rb.linearVelocity;
         abilitesSync = GetComponent<BallAbilitiesSync>();
-        // audioSource = GetComponent<AudioSource>();
-        //Debug.Log("Start speed (Vec3): " + rb.linearVelocity);
-        //Debug.Log("Start speed (float): " + rb.linearVelocity.magnitude);
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -36,31 +34,6 @@ public class BallScript : MonoBehaviour
         if (rbS.velocity.magnitude >= 50f) return;
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Paddle"))
         {
-            // if(rb.linearVelocity.magnitude < lastSpeed.magnitude) {
-            //     rb.linearVelocity = lastSpeed;
-            //     //Debug.Log("Last speed (+): " + lastSpeed.magnitude);
-            // }
-            // else if(-rb.linearVelocity.magnitude < lastSpeed.magnitude) {
-            //     rb.linearVelocity = -lastSpeed;
-            //     //Debug.Log("Last speed (-): " + lastSpeed.magnitude);
-            // }
-            // Vector3 reflection = Vector3.Reflect(rb.linearVelocity, collision.contacts[0].normal);
-
-            // //Debug.Log("Collision speed (Vec3): " + rb.linearVelocity);
-            // //Debug.Log("Contacts normal: " + collision.contacts[0].normal);
-            // //Debug.Log("Reflection: " + reflection);
-
-            // float currentSpeed = rb.linearVelocity.magnitude;
-            // //Debug.Log("Previous speed: " + rb.linearVelocity);
-
-            // float speedMultiplier = 1.05f;
-            // float newSpeed = Mathf.Min(currentSpeed * speedMultiplier, 120.0f);
-
-            // //Debug.Log("New speed: " + newSpeed + " Previous speed: " + currentSpeed);
-
-            // rb.linearVelocity = reflection.normalized * newSpeed;
-            // lastSpeed = rb.linearVelocity;
-            // //Debug.Log("New speed: " + rb.linearVelocity);
 
             ContactPoint contact = collision.contacts[0];
 
@@ -73,11 +46,6 @@ public class BallScript : MonoBehaviour
             rb.linearVelocity = reflectedVelocity.normalized * newSpeed;
             lastSpeed = rb.linearVelocity;
 
-            // if (audioSource != null)
-            // {
-            //     //Debug.Log("chuj");
-            //     audioSource.Play();
-            // }
 
             rbS.ForceUpdate();
         }

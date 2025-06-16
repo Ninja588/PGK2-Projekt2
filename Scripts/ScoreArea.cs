@@ -23,23 +23,18 @@ public class ScoreArea : AttributesSync
         
         if (other.CompareTag("BlueScore"))
         {
-            //redScore++;
             BroadcastRemoteMethod("RedScoreInc");
-            //InvokeRemoteMethod("RedScoreInc");
             PlayGoalSound();
             StartCoroutine(BallCoroutine());
         }
         else if (other.CompareTag("RedScore"))
         {
-            //blueScore++;
             BroadcastRemoteMethod("BlueScoreInc");
-            //InvokeRemoteMethod("BlueScoreInc");
             PlayGoalSound();
             StartCoroutine(BallCoroutine());
         }
 
         BroadcastRemoteMethod("SetScoreText");
-        //scoreText.text = $"<color=blue>{blueScore}</color> : <color=red>{redScore}</color>";
     }
 
     private void PlayGoalSound()
@@ -70,14 +65,12 @@ public class ScoreArea : AttributesSync
     [SynchronizableMethod]
     private void RedScoreInc()
     {
-        //Debug.Log("Siema");
         redScore++;
     }
 
     [SynchronizableMethod]
     private void BlueScoreInc()
     {
-        //Debug.Log("Siema2");
         blueScore++;
     }
 
